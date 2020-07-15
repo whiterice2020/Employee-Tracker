@@ -102,7 +102,7 @@ function addEmployee() {
         });
   }
 
-function bidAuction() {
+function removeEmployee() {
     // query the database for all items being auctioned
     connection.query("SELECT * FROM auctions", function (err, results) {
         if (err) throw err;
