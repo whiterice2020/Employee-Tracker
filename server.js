@@ -75,7 +75,7 @@ function start() {
 }
 
 function addEmployee() {
-    // prompt for info about the item being put up for auction
+    // prompt for info about adding the employee
     inquirer
         .prompt([
             {
@@ -103,20 +103,28 @@ function addEmployee() {
                     "Legal Team Lead",
                 ]
             }
+            {
+                name: "employeeManager",
+                type: "list",
+                message: "Who is the employee's manager?",
+                choices: [
+                    // need to input employee manager////////////////////
+                ]
+            }
         ]).then(function (answer) {
             // when finished prompting, insert a new item into the db with that info
             connection.query(
-                "INSERT INTO auctions SET ?",
+                "INSERT INTO employee SET ?",
                 {
-                    item_name: answer.item,
-                    category: answer.category,
-                    starting_bid: answer.startingBid || 0,
-                    highest_bid: answer.startingBid || 0
+                    first_name: answer.employeeFirstName,
+                    last_name: answer.employeeLastName,
+                    role_id: answer.employeeRole,
+                    highest_bid: answer.manager_id,
                 },
                 function (err) {
                     if (err) throw err;
-                    console.log("Your auction was created successfully!");
-                    // re-prompt the user for if they want to bid or post
+                    console.log("Your employee was created successfully!");
+                    // Restart the prompt
                     start();
                 }
             );
@@ -124,36 +132,19 @@ function addEmployee() {
   }
 
   function removeEmployee() {
-    // prompt for info about the item being put up for auction
+    // prompt for Removing of Employee
     inquirer
     .prompt([
         {
-            name: "employeeFirstName",
-            type: "input",
-            message: "What is the employee's first name?",
-
-        }
-        {
-            name: "employeeLastName",
-            type: "input",
-            message: "What is the employee's last name?",
-
-        }
-        {
-            name: "employeeRole",
+            name: "removeEmployee",
             type: "list",
-            message: "What is the employee's role?",
+            message: "Which employee do you want to remove?",
             choices: [
-                "Sales Lead",
-                "Salesperson",
-                "Lead Engineer",
-                "Account Manager",
-                "Accountant",
-                "Legal Team Lead",
+                // need code to list employees from DB
             ]
         }
     ]).then(function (answer) {
-        // when finished prompting, insert a new item into the db with that info
+        // when finished prompting, Remove employee from DB
         connection.query(
             "INSERT INTO auctions SET ?",
             {
@@ -164,8 +155,8 @@ function addEmployee() {
             },
             function (err) {
                 if (err) throw err;
-                console.log("Your auction was created successfully!");
-                // re-prompt the user for if they want to bid or post
+                console.log("The employee was removed successfully!");
+                // Restart the prompt
                 start();
             }
         );
