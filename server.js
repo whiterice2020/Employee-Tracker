@@ -45,12 +45,12 @@ function start() {
         .then(function (answer) {
             // based on their answer, either call the bid or the post functions
             if (answer.whatToDo === "View All Employees") {
-                ???? ();
+                viewAllEmployees();
             }
             else if (answer.whatToDo === "View All Employees by Department") {
-                ???????? ();
+                viewAllEmployeesbyDepartment();
             } else if (answer.whatToDo === "View All Employees by Manager") {
-                ??????? ();
+                viewAllEmployeesbyManager();
             } else if (answer.whatToDo === "Add Employee") {
                 addEmployee();
             }
@@ -72,6 +72,44 @@ function start() {
                 connection.end();
             }
         });
+}
+
+function viewAllEmployees() {
+    // Will display all current employees
+    var query = "SELECT first_name, last_name FROM employee WHERE ?";
+    connection.query(query, function(err, res) {
+      for (var i = 0; i < res.length; i++) {
+        console.log(res[i].first_name + res[i].last_name);
+      }
+    //   restart questions
+      start();
+    });   
+}
+
+function viewAllEmployeesbyDepartment() {
+    // Will display all current employees by department
+    // Need to modify code to show employees by department, this requires 2 tables
+    var query = "SELECT first_name, last_name FROM employee WHERE ?";
+    connection.query(query, function(err, res) {
+      for (var i = 0; i < res.length; i++) {
+        console.log(res[i].first_name + res[i].last_name);
+      }
+    //   restart questions
+      start();
+    });   
+}
+
+function viewAllEmployeesbyManager() {
+    // Will display all current employees by manager
+    // Need to modify code to show employees by manager, this requires 2 tables
+    var query = "SELECT first_name, last_name FROM employee WHERE ?";
+    connection.query(query, function(err, res) {
+      for (var i = 0; i < res.length; i++) {
+        console.log(res[i].first_name + res[i].last_name);
+      }
+    //   restart questions
+      start();
+    });   
 }
 
 function addEmployee() {
