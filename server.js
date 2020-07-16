@@ -37,17 +37,38 @@ function start() {
                 "Update Employee Role",
                 "Update Employee Manager",
                 "View All Roles",
+                "Add Employee Role",
+                "Remove Employee Role",
 
             ]
         })
         .then(function (answer) {
             // based on their answer, either call the bid or the post functions
-            if (answer.postOrBid === "POST") {
-                postAuction();
+            if (answer.whatToDo === "View All Employees") {
+                ????();
             }
-            else if (answer.postOrBid === "BID") {
-                bidAuction();
-            } else {
+            else if (answer.whatToDo === "View All Employees by Department") {
+                ????????();
+            } else if (answer.whatToDo === "View All Employees by Manager"){
+                ???????();
+            } else if (answer.whatToDo === "Add Employee"){
+                addEmployee();
+            }
+            else if (answer.whatToDo === "Update Employee Role"){
+                updateEmployeeRole();
+            }
+            else if (answer.whatToDo === "Update Employee Manager"){
+                updateEmployeeManager();
+            }
+            else if (answer.whatToDo === "View All Roles"){
+                viewAllRoles();
+            }
+            else if (answer.whatToDo === "Add Employee Role"){
+                addRole();
+            }
+            else if (answer.whatToDo === "Remove Employee Role"){
+                removeRole();
+            }else {
                 connection.end();
             }
         });
