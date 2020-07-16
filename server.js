@@ -45,30 +45,30 @@ function start() {
         .then(function (answer) {
             // based on their answer, either call the bid or the post functions
             if (answer.whatToDo === "View All Employees") {
-                ????();
+                ???? ();
             }
             else if (answer.whatToDo === "View All Employees by Department") {
-                ????????();
-            } else if (answer.whatToDo === "View All Employees by Manager"){
-                ???????();
-            } else if (answer.whatToDo === "Add Employee"){
+                ???????? ();
+            } else if (answer.whatToDo === "View All Employees by Manager") {
+                ??????? ();
+            } else if (answer.whatToDo === "Add Employee") {
                 addEmployee();
             }
-            else if (answer.whatToDo === "Update Employee Role"){
+            else if (answer.whatToDo === "Update Employee Role") {
                 updateEmployeeRole();
             }
-            else if (answer.whatToDo === "Update Employee Manager"){
+            else if (answer.whatToDo === "Update Employee Manager") {
                 updateEmployeeManager();
             }
-            else if (answer.whatToDo === "View All Roles"){
+            else if (answer.whatToDo === "View All Roles") {
                 viewAllRoles();
             }
-            else if (answer.whatToDo === "Add Employee Role"){
+            else if (answer.whatToDo === "Add Employee Role") {
                 addRole();
             }
-            else if (answer.whatToDo === "Remove Employee Role"){
+            else if (answer.whatToDo === "Remove Employee Role") {
                 removeRole();
-            }else {
+            } else {
                 connection.end();
             }
         });
@@ -129,42 +129,40 @@ function addEmployee() {
                 }
             );
         });
-  }
+}
 
-  function removeEmployee() {
+function removeEmployee() {
     // prompt for Removing of Employee
     inquirer
-    .prompt([
-        {
-            name: "removeEmployee",
-            type: "list",
-            message: "Which employee do you want to remove?",
-            choices: [
-                // need code to list employees from DB
-            ]
-        }
-    ]).then(function (answer) {
-        // when finished prompting, Remove employee from DB
-        connection.query(
-            "INSERT INTO auctions SET ?",
+        .prompt([
             {
-                item_name: answer.item,
-                category: answer.category,
-                starting_bid: answer.startingBid || 0,
-                highest_bid: answer.startingBid || 0
-            },
-            function (err) {
-                if (err) throw err;
-                console.log("The employee was removed successfully!");
-                // Restart the prompt
-                start();
+                name: "removeEmployee",
+                type: "list",
+                message: "Which employee do you want to remove?",
+                choices: [
+                    // need code to list employees from DB////////////////////////
+                ]
             }
-        );
-    });
-  }
+        ]).then(function (answer) {
+            // when finished prompting, Remove employee from DB
+            connection.query(
+                // Need to modify below code to remove not insert///////////////////////
+                "INSERT INTO employee SET ?",
+                {//   Need to figure out how to remove from DB/////////////////////////////
 
-  function updateEmployeeRole() {
-    // prompt for info about the item being put up for auction
+                },
+                function (err) {
+                    if (err) throw err;
+                    console.log("The employee was removed successfully!");
+                    // Restart the prompt
+                    start();
+                }
+            );
+        });
+}
+
+function updateEmployeeRole() {
+    // prompt for Updating Employee Role
     inquirer
         .prompt([
             {
@@ -181,27 +179,25 @@ function addEmployee() {
                 ]
             }
         ]).then(function (answer) {
-            // when finished prompting, insert a new item into the db with that info
+            // when finished prompting, this will change the employee role from old value to new one chosen
             connection.query(
-                "INSERT INTO auctions SET ?",
+                // Need to modify below code from insert to whatever the update is for sql
+                "INSERT INTO employee SET ?",
                 {
-                    item_name: answer.item,
-                    category: answer.category,
-                    starting_bid: answer.startingBid || 0,
-                    highest_bid: answer.startingBid || 0
+                    // need to write code to pull current employee roles////////////////////
                 },
                 function (err) {
                     if (err) throw err;
-                    console.log("Your auction was created successfully!");
-                    // re-prompt the user for if they want to bid or post
+                    console.log("The employees successfully!");
+                    // Restart the prompt
                     start();
                 }
             );
         });
-  }
-  
-  function updateEmployeeManager() {
-    // prompt for info about the item being put up for auction
+}
+
+function updateEmployeeManager() {
+    // prompt for Updating Employee Manager
     inquirer
         .prompt([
             {
@@ -209,109 +205,93 @@ function addEmployee() {
                 type: "list",
                 message: "What manager do you want to assign ",
                 choices: [
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
+                    // Need code to list current employees//////////////////////////
                 ]
             }
         ]).then(function (answer) {
-            // when finished prompting, insert a new item into the db with that info
+            // when finished prompting, this will update the employees manager, by manager id
             connection.query(
-                "INSERT INTO auctions SET ?",
+                "INSERT INTO employee SET ?",
                 {
-                    item_name: answer.item,
-                    category: answer.category,
-                    starting_bid: answer.startingBid || 0,
-                    highest_bid: answer.startingBid || 0
+                    manager_id: answer.updateEmployeeManager,
                 },
                 function (err) {
                     if (err) throw err;
-                    console.log("Your auction was created successfully!");
-                    // re-prompt the user for if they want to bid or post
+                    console.log("The employees manager was udpated successfully!");
+                    // Restart the prompt
                     start();
                 }
             );
         });
-  }
-  function viewAllRoles() {
-    // prompt for info about the item being put up for auction
+}
+function viewAllRoles() {
+    // Will display all current roles
     inquirer
         .prompt([
             {
                 name: "viewAllRoles",
                 type: "list",
-                message: "What manager do you want to assign ",
+                message: "Here are all the current roles",
                 choices: [
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
+                    // Need code to display current roles from db/////////////////////
                 ]
             }
         ]).then(function (answer) {
-            // when finished prompting, insert a new item into the db with that info
+            // when finished prompting, restart the questions
             connection.query(
-                "INSERT INTO auctions SET ?",
-                {
-                    item_name: answer.item,
-                    category: answer.category,
-                    starting_bid: answer.startingBid || 0,
-                    highest_bid: answer.startingBid || 0
-                },
                 function (err) {
                     if (err) throw err;
-                    console.log("Your auction was created successfully!");
-                    // re-prompt the user for if they want to bid or post
+                    
+                    // Restart the prompt
                     start();
                 }
             );
         });
-  }
+}
 
-  function addRole() {
-    // prompt for info about the item being put up for auction
+function addRole() {
+    // prompt for info about adding a new role
     inquirer
         .prompt([
             {
                 name: "addRole",
-                type: "list",
+                type: "input",
                 message: "What role would you like to add?",
+            }
+            {
+                name: "salary",
+                type: "input",
+                message: "What is the salary?",
+            }
+            {
+                name: "departmentID",
+                type: "list",
+                message: "Which department does this belong to?",
                 choices: [
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
+                    // need to write code to list available departments//////////////////////
                 ]
             }
         ]).then(function (answer) {
-            // when finished prompting, insert a new item into the db with that info
+            // when finished prompting, insert a new role into the db
             connection.query(
-                "INSERT INTO auctions SET ?",
+                "INSERT INTO role SET ?",
                 {
-                    item_name: answer.item,
-                    category: answer.category,
-                    starting_bid: answer.startingBid || 0,
-                    highest_bid: answer.startingBid || 0
+                    title: answer.addRole,
+                    salary: answer.salary,
+                    department_id: answer.departmentID,
                 },
                 function (err) {
                     if (err) throw err;
-                    console.log("Your auction was created successfully!");
-                    // re-prompt the user for if they want to bid or post
+                    console.log("Your role was created successfully!");
+                    // Restart the prompt
                     start();
                 }
             );
         });
-  }
+}
 
-  function removeRole() {
-    // prompt for info about the item being put up for auction
+function removeRole() {
+    // prompt for info about removing a role
     inquirer
         .prompt([
             {
@@ -319,16 +299,11 @@ function addEmployee() {
                 type: "list",
                 message: "What role would you like to remove?",
                 choices: [
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
+                    // need to write code to list current roles///////////////////////
                 ]
             }
         ]).then(function (answer) {
-            // when finished prompting, insert a new item into the db with that info
+            // when finished prompting, remove the role from the db
             connection.query(
                 "INSERT INTO auctions SET ?",
                 {
@@ -345,5 +320,5 @@ function addEmployee() {
                 }
             );
         });
-  }
+}
 
