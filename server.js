@@ -305,6 +305,7 @@ function removeRole() {
         ]).then(function (answer) {
             // when finished prompting, remove the role from the db
             connection.query(
+                // need to modify the line below to remove the roll from the db
                 "INSERT INTO auctions SET ?",
                 {
                     item_name: answer.item,
@@ -315,7 +316,7 @@ function removeRole() {
                 function (err) {
                     if (err) throw err;
                     console.log("Your auction was created successfully!");
-                    // re-prompt the user for if they want to bid or post
+                    // restart questions
                     start();
                 }
             );
