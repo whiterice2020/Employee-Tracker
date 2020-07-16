@@ -121,13 +121,13 @@ function addEmployee() {
                 type: "input",
                 message: "What is the employee's first name?",
 
-            }
+            },
             {
                 name: "employeeLastName",
                 type: "input",
                 message: "What is the employee's last name?",
 
-            }
+            },
             {
                 name: "employeeRole",
                 type: "list",
@@ -140,7 +140,7 @@ function addEmployee() {
                     "Accountant",
                     "Legal Team Lead",
                 ]
-            }
+            },
             {
                 name: "employeeManager",
                 type: "list",
@@ -295,12 +295,12 @@ function addRole() {
                 name: "addRole",
                 type: "input",
                 message: "What role would you like to add?",
-            }
+            },
             {
                 name: "salary",
                 type: "input",
                 message: "What is the salary?",
-            }
+            },
             {
                 name: "departmentID",
                 type: "list",
