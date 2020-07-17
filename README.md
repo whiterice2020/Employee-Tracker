@@ -43,7 +43,7 @@
 
   # Video
   Click the above image to watch the demo!
-  [![Demo Video](./assets/images/image1.jpg)](https://youtu.be/A3dXSV8r3hQ "Click here to watch the demo!")
+  [![Demo Video](image1.jpg)](https://youtu.be/A3dXSV8r3hQ "Click here to watch the demo!")
 
 
   # License
