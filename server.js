@@ -86,7 +86,7 @@ function viewAllEmployees() {
 function viewAllDepartment() {
     // Will display all current employees by department
     // Need to modify code to show employees by department, this requires 2 tables
-    connection.query("select * from department", function (error, result) {
+    connection.query("SELECT department.id, department.name, SUM(role.salary) AS utilized_budget FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id GROUP BY department.id, department.name;", function (error, result) {
         console.table(result)
     // })
     //   restart questions
@@ -96,15 +96,11 @@ function viewAllDepartment() {
 
 function viewAllEmployeesbyManager() {
     // Will display all current employees by manager
-    // Need to modify code to show employees by manager, this requires 2 tables
-    var query = "SELECT first_name, last_name FROM employee WHERE ?";
-    connection.query(query, function(err, res) {
-      for (var i = 0; i < res.length; i++) {
-        console.log(res[i].first_name + res[i].last_name);
-      }
-    //   restart questions
-      start();
-    });   
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;",
+  function(error, result) {
+    console.table(result)
+    start();
+  })
 }
 
 function addEmployee() {
@@ -131,19 +127,21 @@ function addEmployee() {
                     "Sales Lead",
                     "Salesperson",
                     "Lead Engineer",
+                    "Software Engineer",
                     "Account Manager",
                     "Accountant",
                     "Legal Team Lead",
+                    "Lawyer",
                 ]
             },
-            {
-                name: "employeeManager",
-                type: "list",
-                message: "Who is the employee's manager?",
-                choices: [
-                    // need to input employee manager////////////////////
-                ]
-            }
+            // {
+            //     name: "employeeManager",
+            //     type: "list",
+            //     message: "Who is the employee's manager?",
+            //     choices: [
+            //         // need to input employee manager////////////////////
+            //     ]
+            // }
         ]).then(function (answer) {
             // when finished prompting, insert a new item into the db with that info
             connection.query(
@@ -152,7 +150,7 @@ function addEmployee() {
                     first_name: answer.employeeFirstName,
                     last_name: answer.employeeLastName,
                     role_id: answer.employeeRole,
-                    highest_bid: answer.manager_id,
+                    manager_id: answer.manager_id,
                 },
                 function (err) {
                     if (err) throw err;
@@ -259,7 +257,7 @@ function updateEmployeeManager() {
 }
 function viewAllRoles() {
     // Will display all current roles
-    connection.query("select * from role", function (error, result) {
+    connection.query( "SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;", function (error, result) {
         console.table(result)
     // })
     //   restart questions
