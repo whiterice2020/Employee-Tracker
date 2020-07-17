@@ -31,7 +31,7 @@ function start() {
             message: "What would you like to do?",
             choices: [
                 "View All Employees",
-                "View All Employees by Department",
+                "View All Departments",
                 "View All Employees by Manager",
                 "Add Employee",
                 "Update Employee Role",
@@ -47,8 +47,8 @@ function start() {
             if (answer.whatToDo === "View All Employees") {
                 viewAllEmployees();
             }
-            else if (answer.whatToDo === "View All Employees by Department") {
-                viewAllEmployeesbyDepartment();
+            else if (answer.whatToDo === "View All Departments") {
+                viewAllDepartment();
             } else if (answer.whatToDo === "View All Employees by Manager") {
                 viewAllEmployeesbyManager();
             } else if (answer.whatToDo === "Add Employee") {
@@ -76,27 +76,22 @@ function start() {
 
 function viewAllEmployees() {
     // Will display all current employees
-    var query = "SELECT first_name, last_name FROM employee WHERE ?";
-    connection.query(query, function(err, res) {
-      for (var i = 0; i < res.length; i++) {
-        console.log(res[i].first_name + res[i].last_name);
-      }
-    //   restart questions
-      start();
-    });   
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id;",
+  function(error, result) {
+    console.table(result)
+    start();
+  })
 }
 
-function viewAllEmployeesbyDepartment() {
+function viewAllDepartment() {
     // Will display all current employees by department
     // Need to modify code to show employees by department, this requires 2 tables
-    var query = "SELECT first_name, last_name FROM employee WHERE ?";
-    connection.query(query, function(err, res) {
-      for (var i = 0; i < res.length; i++) {
-        console.log(res[i].first_name + res[i].last_name);
-      }
+    connection.query("select * from department", function (error, result) {
+        console.table(result)
+    // })
     //   restart questions
       start();
-    });   
+    }) 
 }
 
 function viewAllEmployeesbyManager() {
@@ -264,27 +259,12 @@ function updateEmployeeManager() {
 }
 function viewAllRoles() {
     // Will display all current roles
-    inquirer
-        .prompt([
-            {
-                name: "viewAllRoles",
-                type: "list",
-                message: "Here are all the current roles",
-                choices: [
-                    // Need code to display current roles from db/////////////////////
-                ]
-            }
-        ]).then(function (answer) {
-            // when finished prompting, restart the questions
-            connection.query(
-                function (err) {
-                    if (err) throw err;
-                    
-                    // Restart the prompt
-                    start();
-                }
-            );
-        });
+    connection.query("select * from role", function (error, result) {
+        console.table(result)
+    // })
+    //   restart questions
+      start();
+    }) 
 }
 
 function addRole() {
