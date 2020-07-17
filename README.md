@@ -32,18 +32,18 @@
   
   # Images
 
-  ![Image1](assets/images/image1.jpg)
+  ![Image1](./assets/images/image1.jpg)
   
-  ![Image2](assets/images/image2.jpg)
+  ![Image2](./assets/images/image2.jpg)
   
-  ![Image3](assets/images/image3.jpg)
+  ![Image3](./assets/images/image3.jpg)
   
-  ![Image3](assets/images/image4.jpg)
+  ![Image3](./assets/images/image4.jpg)
 
 
   # Video
   Click the above image to watch the demo!
-  [![Demo Video](assets/images/image1.jpg)](https://youtu.be/A3dXSV8r3hQ "Click here to watch the demo!")
+  [![Demo Video](./assets/images/image1.jpg)](https://youtu.be/A3dXSV8r3hQ "Click here to watch the demo!")
 
 
   # License
